@@ -1,0 +1,43 @@
+input.input {
+	//Common styles
+	@apply flex w-full 
+        bg-background 
+        px-3 
+        text-sm 
+        ring-offset-background  
+        focus-visible:outline-none 
+        h-10  disabled:opacity-50  
+        file:border-0 file:bg-transparent 
+        file:text-sm file:font-medium 
+        focus-visible:ring-2
+        focus-visible:ring-offset-2 
+        disabled:cursor-not-allowed;
+	//Form input styles
+	&--form {
+		@apply form-input 
+             rounded-md 
+             border-none 
+            py-1.5 
+            text-gray-900 
+            shadow-sm 
+            ring-1 
+            ring-inset 
+            ring-gray-300
+            placeholder:text-gray-400 
+            focus:ring-inset 
+            focus:ring-2
+            focus:ring-gray-600 
+            sm:text-sm 
+            sm:leading-6;
+	}
+
+	//Default input styles
+	&--default {
+		@apply border border-input
+            bg-background
+            rounded-md  
+            px-3 py-2   
+            file:font-medium placeholder:text-muted-foreground  
+            focus-visible:ring-ring;
+	}
+}

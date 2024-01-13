@@ -1,0 +1,14 @@
+.icon {
+    @apply text-zinc-600 hover:text-zinc-800 transition;
+}
+
+.search {
+    @apply flex-1 md:hidden flex justify-end;
+}
+
+.write {
+    @apply flex items-center gap-x-1;
+}
+.search__bar {
+    @apply flex-1 md:block hidden;
+}

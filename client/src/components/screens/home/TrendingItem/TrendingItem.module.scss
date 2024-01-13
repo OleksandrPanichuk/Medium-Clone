@@ -1,0 +1,45 @@
+@import '@/styles/mixins.scss';
+
+.wrapper, .skeleton {
+	@apply flex items-start gap-x-4;
+}
+
+.content, .skeleton__content {
+	@apply flex flex-col gap-y-2 items-start w-full;
+}
+
+.position {
+	color: #f2f2f2;
+	@include adaptive-value('font-size', 32, 24);
+	@include adaptive-value('line-height', 38, 28);
+	letter-spacing: -0.014em;
+}
+
+.creator , .skeleton__creator{
+	@apply flex items-center gap-x-1 ;
+}
+.skeleton__creator {
+	@apply w-full;
+}
+.skeleton__username {
+	@apply h-4 w-1/2;
+}
+
+.title {
+	@apply text-base text-gray-primary font-bold;
+	@include truncate(2);
+}
+.skeleton__title {
+	@apply w-full h-8;
+}
+.bottom {
+	@apply flex items-center;
+}
+.skeleton__time {
+	@apply w-[30%] h-4;
+}
+.time {
+	color: #6b6b6b;
+	font-size: 0.8125rem;
+	line-height: 1.25rem;
+}

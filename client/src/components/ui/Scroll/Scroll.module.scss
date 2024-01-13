@@ -1,0 +1,9 @@
+@import '@/styles/mixins.scss';
+
+.container {
+	@apply h-min relative px-2;
+}
+
+.wrapper {
+	@apply overflow-auto flex items-center px-1  h-fit justify-start py-4 gap-x-2 relative;
+}

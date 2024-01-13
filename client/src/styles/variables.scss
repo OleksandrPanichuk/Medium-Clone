@@ -1,0 +1,16 @@
+$minWidth: 320;
+$maxWidth: 1920;
+$maxWidthContainer: 1200;
+$containerPadding: 25;
+$containerWidth: calc($maxWidthContainer + $containerPadding * 2);
+$header-height: 75;
+
+$screen-lg: 65rem; // 1040px
+$screen-md: 50rem; // 800px
+$screen-xs: 27.5rem; // 440px 
+$screen-sm: 40rem ; //640px
+
+$gray-primary: #242424;
+$yellow: #ffc017;
+
+$rem-base: 16;

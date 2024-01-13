@@ -1,0 +1,21 @@
+@import "@/styles/mixins.scss" ;
+
+
+.search {
+        @apply max-w-sm w-full ;
+        >div {
+            max-width: none;
+        }
+    
+    &__trigger {
+        @apply w-full max-w-lg ;
+    }
+    &__content {
+        @apply max-w-sm;
+    }
+    &__bar {
+        @apply md:hidden flex items-center justify-center my-6;
+    }
+}
+
+

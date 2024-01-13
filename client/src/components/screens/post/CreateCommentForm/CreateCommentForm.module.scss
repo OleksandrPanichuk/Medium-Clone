@@ -1,0 +1,18 @@
+.form {
+	@apply flex flex-col p-4 gap-y-2 shadow-lg rounded-md my-2;
+}
+
+.user {
+	@apply flex items-center gap-x-2;
+}
+
+.textarea {
+	@apply border-none focus-visible:ring-0 focus-visible:ring-offset-0 rounded-none max-h-96;
+}
+.submit {
+	@apply w-full flex justify-end;
+}
+
+.button {
+	@apply bg-green-700 rounded-2xl border border-green-800 hover:bg-green-600;
+}

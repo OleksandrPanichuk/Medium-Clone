@@ -1,0 +1,21 @@
+.item {
+	a {
+		@apply flex items-center gap-x-2 text-zinc-600 hover:text-zinc-800 transition;
+	}
+}
+
+.image {
+	@apply rounded-full object-cover object-center w-6 h-6;
+}
+.heading {
+	@apply font-semibold text-lg text-zinc-600 uppercase tracking-wider;
+}
+
+
+.icon {
+	@apply w-6 h-6
+}
+
+.created-by {
+	@apply text-[0.625rem] text-zinc-500
+}

@@ -1,0 +1,30 @@
+@import '@/styles/mixins.scss';
+
+.no-content {
+	@apply w-full mb-4 aspect-video flex flex-col bg-zinc-100  items-center justify-center gap-y-5;
+	@include adaptive-value('padding-block', 72, 36);
+	@include adaptive-value('padding-inline', 32, 16);
+
+	&__title {
+		@apply font-secondary text-base   font-bold text-gray-primary;
+	}
+	&__text {
+		@apply text-gray-primary text-xs text-center;
+		max-width: rem(400);
+	}
+	&__button {
+		@apply rounded-2xl bg-transparent border-zinc-800 text-zinc-800 font-medium ;
+	}
+}
+
+.content {
+	@apply flex flex-col gap-y-2 mb-4;
+	&__actions {
+		@apply flex items-center justify-end w-full;
+	}
+}
+
+.about {
+	@apply font-secondary;
+	text-wrap: balance;
+}

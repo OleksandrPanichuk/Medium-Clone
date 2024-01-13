@@ -1,0 +1,18 @@
+.info {
+    @apply flex flex-col  px-2;
+    h3 {
+        @apply text-zinc-800 text-lg font-bold;
+    }
+
+    p {
+        @apply text-zinc-600 text-sm font-medium;
+    }
+}
+
+.content {
+    @apply gap-y-1 flex flex-col mx-2 min-w-[15rem];
+}
+
+.item {
+    @apply  gap-x-1 ;
+}

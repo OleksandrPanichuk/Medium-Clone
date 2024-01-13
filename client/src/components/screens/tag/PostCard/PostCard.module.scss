@@ -1,0 +1,48 @@
+@import '@/styles/mixins.scss';
+
+.image {
+	@apply relative w-full aspect-video  cursor-pointer;
+	img {
+		@apply object-contain object-center;
+	}
+}
+
+.create__info {
+	@apply flex items-center justify-between gap-x-4 mt-4;
+}
+
+.creator {
+	@apply flex items-center gap-x-2 cursor-pointer;
+}
+
+.avatar {
+	@apply object-cover rounded-full w-8 h-8;
+}
+
+.username {
+	@apply text-sm hover:underline;
+}
+
+.description {
+	@apply text-zinc-600 my-2  cursor-pointer;
+	@include adaptive-value('font-size', 16, 14);
+	@include adaptive-value('line-height', 24, 16);
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.actions {
+	@apply flex items-center my-2 gap-x-4;
+}
+
+.comments {
+	@apply flex gap-x-1 text-zinc-600 hover:text-zinc-900 transition-all cursor-pointer;
+	svg {
+		path {
+			stroke-width: 1.5px;
+		}
+	}
+}

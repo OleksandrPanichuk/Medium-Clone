@@ -1,0 +1,105 @@
+@import '@/styles/mixins';
+
+.top,
+.skeleton {
+  @apply flex  gap-2  my-2  justify-between flex-col-reverse;
+  @include screen-xs {
+    @apply flex-row items-start;
+  }
+}
+.bottom {
+  @apply flex items-start gap-x-4 w-full justify-between;
+}
+
+.dot {
+  @apply text-zinc-600;
+}
+
+.content,
+.skeleton__content {
+  @apply flex flex-col gap-y-2;
+}
+
+.content {
+  @apply items-start;
+}
+
+.header,
+.skeleton__header {
+  @apply flex items-center gap-x-1 gap-y-2 flex-wrap w-full;
+}
+
+.creator {
+  @apply flex items-center gap-x-1;
+}
+
+.title {
+  @apply m-0;
+  @include truncate(3);
+}
+
+.description {
+  @apply font-secondary text-sm text-zinc-600 cursor-pointer;
+  word-break: break-word;
+}
+
+.time {
+  @apply cursor-pointer;
+}
+
+.image,
+.skeleton__image {
+  @apply aspect-square w-full  relative cursor-pointer;
+  img {
+    @apply object-cover;
+  }
+
+  @include screen-xs {
+    @include adaptive-value('width', 120, 80);
+    @include adaptive-value('height', 120, 80);
+  }
+}
+
+.tags,
+.skeleton__tags {
+  @apply flex flex-wrap gap-4;
+}
+
+.skeleton {
+  &__header {
+    @apply flex-nowrap;
+  }
+
+  &__content {
+    @apply w-full;
+  }
+
+  &__avatar {
+    @apply rounded-full w-10 h-10;
+  }
+
+  &__image {
+    @apply cursor-auto;
+  }
+
+  &__username {
+    @apply h-8 flex-1;
+  }
+
+  &__time {
+    @apply h-8;
+    @include adaptive-value('width', 160, 80);
+  }
+
+  &__title {
+    @apply w-full h-8;
+  }
+
+  &__description {
+    @apply w-full h-40;
+  }
+
+  &__tag {
+    @apply w-24 py-2 px-4 h-11  rounded-2xl;
+  }
+}

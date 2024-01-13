@@ -1,0 +1,18 @@
+.tag {
+	@apply flex flex-col items-center py-20;
+	&__info {
+		@apply flex items-center gap-x-1 py-2 text-zinc-600 text-xl  font-medium;
+		span {
+			@apply font-secondary;
+		}
+	}
+
+	&__name {
+		@apply text-5xl text-gray-primary font-semibold;
+	}
+}
+
+.recommended {
+	@apply text-2xl font-semibold text-gray-primary py-4;
+}
+

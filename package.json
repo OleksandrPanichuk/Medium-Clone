@@ -1,0 +1,23 @@
+{
+  "name": "medium-clone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm run start:dev",
+    "client": "cd client && npm run dev",
+    "build": "concurrently \"npm run build:client\" \"npm run build:server\"",
+    "build:client": "cd client && npm run build",
+    "build:server": "cd server && npx prisma generate && npm run build",
+    "start": "concurrently \"npm run start:client\" \"npm run start:server\"",
+    "start:client": "cd client && npm run start",
+    "start:server": "cd server && npm run start:prod"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "prettier": "^3.0.3"
+  }
+}

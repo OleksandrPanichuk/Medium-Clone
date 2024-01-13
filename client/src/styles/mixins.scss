@@ -1,0 +1,61 @@
+@import './variables.scss';
+
+@mixin screen-lg {
+	@media screen and (min-width:$screen-lg) {
+		@content;
+	}
+}
+
+@mixin screen-md {
+	@media screen and (min-width: $screen-md) {
+		@content;
+	}
+}
+
+@mixin screen-xs {
+	@media screen and (min-width: $screen-xs) {
+		@content;
+	}
+}
+@mixin screen-sm {
+	@media screen and (min-width:$screen-sm)  {
+		@content;
+	}
+}
+
+@mixin adaptive-value($property, $startSize, $minSize, $type: 1) {
+	$addSize: $startSize - $minSize;
+	@if $type == 1 {
+		#{$property}: $startSize + px;
+		@media (max-width: #{$maxWidthContainer + px}) {
+			#{$property}: calc(
+				#{$minSize + px} + #{$addSize} *
+					((100vw - 320px) / #{$maxWidthContainer - 320})
+			);
+		}
+	} @else if $type == 2 {
+		#{$property}: $startSize + px;
+		@media (min-width: #{$maxWidthContainer + px}) {
+			#{$property}: calc(
+				#{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320})
+			);
+		}
+	} @else {
+		#{$property}: calc(
+			#{$minSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth - 320})
+		);
+	}
+}
+
+@mixin truncate($line-clamp: 1) {
+	display: -webkit-box;
+	-webkit-line-clamp: $line-clamp;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+@function rem($value) {
+	$rem-value: ($value / $rem-base) + rem;
+	@return $rem-value
+}

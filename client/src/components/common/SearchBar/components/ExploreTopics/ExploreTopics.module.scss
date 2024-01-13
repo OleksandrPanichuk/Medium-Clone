@@ -1,0 +1,22 @@
+.explore__topics {
+    @apply my-4;
+    span,
+    svg {
+        @apply text-zinc-600;
+    }
+    a {
+        @apply flex items-center gap-x-2;
+    }
+    svg {
+        @apply w-6 h-6;
+    }
+    span {
+        @apply block flex-1 text-base;
+    }
+    &:hover {
+        span,
+        svg {
+            @apply text-zinc-900;
+        }
+    }
+}

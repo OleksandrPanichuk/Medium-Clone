@@ -1,0 +1,7 @@
+
+.container {
+  @apply flex flex-col items-center gap-y-2 h-fit my-10;
+}
+.title {
+  @apply  text-5xl font-bold text-zinc-900 my-4 ;
+}

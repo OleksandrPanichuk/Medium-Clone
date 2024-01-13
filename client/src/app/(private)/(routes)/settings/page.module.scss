@@ -1,0 +1,28 @@
+@import '@/styles/variables.scss';
+
+.wrapper {
+	@apply flex gap-x-4;
+}
+.sections {
+    @apply w-full flex gap-10 flex-col py-6;
+}
+.section {
+	@apply w-full px-4 py-3  rounded-lg flex flex-col gap-y-2 border border-zinc-100 ;
+    background-color: rgba(252, 252,252, 1);
+    &__verify {
+        @apply  bg-orange-200 border-orange-300
+    }
+    &__subscription {
+        @apply bg-sky-500/10 border-sky-300
+    }
+}
+
+.sidebar {
+	@apply  hidden md:flex flex-col gap-3 sticky top-0 py-4 h-min;
+	&__item {
+		@apply flex items-center px-3 py-2 gap-x-2 transition-colors rounded-sm text-sm font-semibold min-w-max hover:bg-accent hover:text-accent-foreground;
+		&--active {
+			@apply bg-sky-500/10 text-sky-700 ;
+		}
+	}
+}

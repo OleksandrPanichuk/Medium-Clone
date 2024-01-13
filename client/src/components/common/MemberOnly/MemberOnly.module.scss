@@ -1,0 +1,26 @@
+.trigger {
+  @apply flex items-center gap-x-1 text-sm text-zinc-600;
+
+}
+
+.content {
+  @apply p-4 pb-6 shadow-xl border border-zinc-200 flex flex-col items-center ;
+  max-width: 250px;
+  width: 100% !important;
+}
+
+.title {
+  @apply text-lg font-medium text-zinc-900  mb-2;
+}
+
+.text {
+  @apply text-base text-zinc-600 text-center ;
+}
+
+.button {
+  @apply my-4  bg-green-700 hover:bg-green-600;
+}
+
+.more {
+  @apply text-green-700 text-base hover:underline hover:text-green-600 transition;
+}

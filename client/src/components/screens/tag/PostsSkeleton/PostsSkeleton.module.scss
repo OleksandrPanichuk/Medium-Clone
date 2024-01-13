@@ -1,0 +1,50 @@
+.skeleton {
+	@apply flex flex-col gap-y-4;
+}
+.image {
+	@apply relative w-full aspect-video;
+}
+.create__info {
+	@apply flex items-center gap-x-4 justify-between;
+}
+
+.avatar {
+	@apply rounded-full w-8 h-8;
+}
+
+.username {
+	@apply flex-1 h-6;
+}
+
+.creator {
+	@apply flex items-center gap-x-2 w-full;
+}
+
+.time {
+	@apply min-w-[4rem]  h-6;
+}
+
+.title {
+	@apply w-full h-8;
+}
+
+.description {
+	@apply w-full h-20;
+}
+
+.actions {
+	@apply flex items-center my-2 gap-x-4;
+}
+
+.claps {
+	@apply flex items-center gap-x-1 text-zinc-600;
+}
+
+.comments {
+	@apply flex gap-x-1 text-zinc-600 ;
+	svg {
+		path {
+			stroke-width: 1.5px;
+		}
+	}
+}

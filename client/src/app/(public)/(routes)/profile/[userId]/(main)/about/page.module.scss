@@ -1,0 +1,12 @@
+.content {
+	@apply flex flex-col gap-y-2 mb-4;
+}
+
+.about {
+	@apply font-secondary;
+	text-wrap: balance;
+}
+
+.no-about {
+    @apply text-base text-zinc-700;
+}

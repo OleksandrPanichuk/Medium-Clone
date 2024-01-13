@@ -1,0 +1,6 @@
+@import '@/styles/variables.scss';
+
+.wrapper {
+  @apply flex-[75%] ;
+  min-height: calc(100dvh - #{$header-height + px});
+}

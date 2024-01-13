@@ -1,0 +1,9 @@
+@import '@/styles/mixins.scss';
+
+.logo {
+	@apply flex items-center gap-x-1 w-max;
+}
+
+.text {
+	@apply text-zinc-700 text-lg font-secondary;
+}

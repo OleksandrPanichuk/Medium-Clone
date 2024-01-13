@@ -1,0 +1,27 @@
+@import '@/styles/variables.scss';
+@import '@/styles/mixins.scss';
+
+.sidebar {
+	@apply border-l border-border sticky  flex-[25%] top-0 px-4 pt-16 pb-4 md:flex md:flex-col md:items-start md:gap-y-4 hidden;
+	min-height: calc(100dvh - #{$header-height + px});
+	max-height: 100dvh;
+}
+
+.avatar {
+	@include adaptive-value('width', 96, 64);
+	@include adaptive-value('height', 96, 64);
+	font-size: 32px;
+}
+.username {
+	@apply text-lg font-secondary font-medium;
+}
+.about {
+	@apply text-sm text-zinc-600;
+	word-break: break-word;
+	text-wrap: balance;
+	@include truncate(3);
+}
+
+.edit-profile {
+	@apply text-green-700 hover:text-zinc-800 transition-colors text-sm font-secondary;
+}

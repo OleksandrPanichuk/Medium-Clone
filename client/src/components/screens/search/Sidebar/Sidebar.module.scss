@@ -1,0 +1,87 @@
+@import '@/styles/mixins.scss';
+@import '@/styles/variables.scss';
+
+.aside {
+	@apply hidden  relative;
+	@include screen-md {
+		@apply flex-[40%] block;
+		min-height: calc(100dvh - #{$header-height + px});
+	}
+}
+
+.content {
+	@apply border-l border-border h-full sticky px-4 py-6 top-0 right-0 overflow-auto gap-y-4 flex-col  flex w-full;
+	@include screen-md {
+		max-height: 100dvh;
+		min-height: calc(100dvh - #{$header-height + px});
+	}
+
+	&::-webkit-scrollbar {
+		@apply hidden;
+	}
+}
+
+.result {
+	@apply flex flex-col gap-y-4;
+}
+
+.post {
+	@apply flex flex-col gap-y-2 shadow-md rounded-md p-3 items-start;
+	&-creator {
+		@apply flex items-center gap-x-1 cursor-pointer;
+		&__avatar {
+			@apply object-cover rounded-full w-8 h-8;
+		}
+
+		&__username {
+			@apply text-sm hover:underline;
+		}
+	}
+
+	&__title {
+		@include adaptive-value('font-size', 16, 12);
+		line-height: 1.25;
+		-webkit-line-clamp: 3;
+		margin: 0;
+	}
+
+	&-member_only {
+		@apply flex items-center gap-x-1 text-sm text-zinc-600;
+	}
+
+	&__time {
+		@apply text-xs text-zinc-600 font-secondary cursor-pointer;
+	}
+}
+
+.result__type {
+	@apply text-base  text-zinc-700;
+	span {
+		@apply text-zinc-900 font-bold;
+	}
+}
+
+.tags {
+	@apply flex flex-wrap gap-4;
+}
+
+.see__all {
+	@apply text-base px-2 block text-green-700;
+	align-self: flex-start;
+}
+
+.user {
+	@apply flex  gap-x-1;
+	&__avatar {
+		@apply min-w-[2.5rem] cursor-pointer;
+	}
+
+	&__username {
+		@apply hover:underline text-sm font-semibold text-zinc-800 cursor-pointer;
+	}
+
+	&__about {
+		@apply text-xs text-zinc-600 cursor-pointer;
+		@include truncate(3);
+	}
+}

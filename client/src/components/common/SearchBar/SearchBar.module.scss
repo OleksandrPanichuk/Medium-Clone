@@ -1,0 +1,15 @@
+.loader {
+	@apply w-full flex flex-col items-center gap-y-1;
+}
+
+.content {
+	
+	@apply overflow-x-hidden p-3 max-h-[18.75rem] mt-2;
+}
+.list {
+	@apply flex flex-col gap-y-2;
+}
+
+.search__icon {
+	@apply text-zinc-700 cursor-pointer transition hover:text-zinc-900;
+}

@@ -1,0 +1,32 @@
+@import  '@/styles/mixins.scss';
+
+.wrapper {
+    @apply flex flex-col gap-y-8 my-4;
+}
+
+.title {
+    @apply  text-gray-primary font-medium ;
+    @include adaptive-value('font-size',42, 24);
+    @include adaptive-value('line-height', 52,30);
+
+}
+
+.list {
+    @apply flex flex-col w-full gap-y-4;
+}
+
+.item {
+    @apply w-full flex items-center justify-between gap-x-4;
+    &__text {
+        @apply text-base text-gray-primary;
+    }
+}
+.remove {
+    svg {
+        @apply w-6 h-6 text-zinc-700 hover:text-zinc-900 transition-colors ;
+    }
+}
+
+.no__searches {
+    @apply text-base text-gray-primary;
+}

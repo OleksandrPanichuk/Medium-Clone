@@ -1,0 +1,13 @@
+@import '@/styles/variables.scss';
+
+.wrapper {
+	@apply flex-[75%];
+	min-height: calc(100dvh - #{$header-height + px});
+}
+.content {
+	@apply max-w-2xl w-full mx-auto px-5 flex flex-col gap-y-8 pt-16 pb-4;
+}
+
+.username {
+	@apply text-5xl font-secondary font-bold text-zinc-900;
+}

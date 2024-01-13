@@ -1,0 +1,40 @@
+@import '@/styles/mixins.scss';
+.wrapper,
+.skeleton {
+	@apply flex items-center  cursor-pointer;
+	@include adaptive-value('column-gap', 16, 8);
+}
+
+.avatar {
+	@apply w-12 h-12 flex-none;
+}
+.info,
+.skeleton__info {
+	@apply flex flex-col  w-full;
+}
+
+.username {
+	@apply text-zinc-900 font-semibold truncate;
+	@include adaptive-value('font-size', 24, 20);
+}
+
+.about {
+	@apply text-sm text-zinc-600;
+	@include truncate(3);
+	@include screen-md {
+		@include truncate(2);
+	}
+}
+
+.skeleton {
+	@apply cursor-auto;
+	&__info {
+		@apply gap-y-2;
+	}
+	&__username {
+		@apply w-[75%] h-10;
+	}
+	&__about {
+		@apply w-full h-20;
+	}
+}

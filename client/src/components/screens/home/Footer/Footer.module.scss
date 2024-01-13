@@ -1,0 +1,20 @@
+.wrapper {
+    @apply md:hidden bg-black;
+}
+.container {
+    @apply flex flex-col gap-y-4 py-8;
+}
+
+.logo {
+    span {
+        @apply text-zinc-100;
+    }
+}
+
+.links {
+    @apply flex gap-4;
+}
+
+.link {
+    @apply text-sm text-zinc-100 font-secondary hover:underline transition-all;
+}

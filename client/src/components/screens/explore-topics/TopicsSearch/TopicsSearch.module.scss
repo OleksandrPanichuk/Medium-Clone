@@ -1,0 +1,38 @@
+@import '@/styles/mixins.scss';
+
+.wrapper {
+	@apply w-full max-w-lg;
+	& .input {
+		@apply text-base;
+		border-radius: 3.5rem;
+		height: 4rem;
+		padding-inline: 2rem;
+	}
+}
+
+.content {
+	@apply max-h-60 overflow-auto flex flex-col gap-y-2 p-3 my-4;
+	@include adaptive-value('width', 360, 280);
+}
+
+.tag {
+	@apply flex items-center gap-x-2;
+}
+
+.icon {
+	@apply w-6 h-6;
+}
+
+.skeleton {
+	@apply flex items-center gap-x-2;
+	&__name {
+		@apply flex-1 rounded-md h-6 bg-zinc-200;
+	}
+	&__count {
+		@apply w-6 h-6 rounded-md bg-zinc-200;
+	}
+}
+
+.search__icon {
+	@apply text-zinc-700 cursor-pointer transition hover:text-zinc-900;
+}

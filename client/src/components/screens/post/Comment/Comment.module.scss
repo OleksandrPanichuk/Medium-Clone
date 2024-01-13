@@ -1,0 +1,29 @@
+.comment {
+    @apply flex flex-col gap-y-2 my-2 ;
+}
+.creator {
+	@apply flex items-center gap-x-2;
+}
+
+.username {
+	@apply text-zinc-800 text-base;
+}
+.date {
+	@apply text-zinc-600 text-xs font-secondary;
+}
+.info {
+	@apply flex flex-col flex-1 items-start;
+}
+.text {
+    @apply text-sm ;
+}
+
+.claps {
+	@apply flex justify-start gap-x-1;
+	&_active {
+		.icon {
+			@apply animate-claps-scale;
+		 }
+	}
+}
+

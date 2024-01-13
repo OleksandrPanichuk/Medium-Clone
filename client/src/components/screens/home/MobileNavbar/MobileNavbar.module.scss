@@ -1,0 +1,20 @@
+.wrapper {
+    @apply md:hidden flex-1 flex items-center;
+}
+
+.routes {
+    @apply flex flex-col gap-y-4;
+}
+
+.route {
+    @apply text-xl flex items-center gap-x-2 relative px-2 py-2 rounded-sm transition-all hover:shadow-xl;
+}
+.routes:hover {
+    .route:not(:hover) {
+        @apply text-zinc-500
+    }
+}
+
+.icon {
+    @apply w-6 h-6;
+}

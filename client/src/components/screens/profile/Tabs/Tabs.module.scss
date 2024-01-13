@@ -1,0 +1,19 @@
+.tabs {
+	@apply flex items-center gap-x-4;
+}
+.tab {
+	@apply relative z-10 py-4 border-b border-transparent;
+	a {
+		@apply text-base text-zinc-600 ease-linear transition-colors hover:text-zinc-800;
+	}
+	&_active {
+		@apply  border-zinc-900;
+		a {
+			@apply text-zinc-900;
+		}
+	}
+}
+
+.separator {
+	margin-top: -1px;
+}

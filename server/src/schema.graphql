@@ -1,0 +1,492 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Avatar {
+  url: String!
+  key: String
+}
+
+type UserEntity {
+  id: String!
+  username: String!
+  email: String!
+  createdAt: Date!
+  avatar: Avatar
+  about: String
+  verified: Boolean!
+}
+
+type UserEntityWithoutUnusedData {
+  id: String!
+  username: String!
+  avatar: Avatar
+}
+
+type SearchUsersResponse {
+  id: ID!
+  username: String!
+  avatar: Avatar
+  about: String
+}
+
+type CurrentUserResponse {
+  id: String!
+  username: String!
+  email: String!
+  createdAt: Date!
+  avatar: Avatar
+  about: String
+  verified: Boolean!
+  subscribed: Boolean!
+}
+
+type SignInResponse {
+  id: String!
+  username: String!
+  email: String!
+  createdAt: Date!
+  avatar: Avatar
+  about: String
+  verified: Boolean!
+  subscribed: Boolean!
+}
+
+type File {
+  url: String!
+  key: String!
+}
+
+type TagEntity {
+  id: String!
+  name: String!
+}
+
+type TagCount {
+  posts: Int!
+}
+
+type TagEntityWithCount {
+  id: String!
+  name: String!
+  _count: TagCount!
+}
+
+type PostClap {
+  id: String!
+  postId: String!
+  userId: String!
+}
+
+type PostEntity {
+  id: ID!
+  title: String!
+  attachments: [File!]
+  content: JSON
+  description: String!
+  createdAt: Date!
+  creatorId: String!
+  image: File!
+  public: Boolean!
+  updatedAt: Date!
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type FullPostEntityCount {
+  comments: Int!
+  claps: Int!
+  lists: Int!
+}
+
+type PostByTagEntityWithTag {
+  id: String!
+  tagId: String!
+  postId: String!
+  tag: TagEntity!
+}
+
+type PostEntityWithCreatorAndTags {
+  id: ID!
+  title: String!
+  attachments: [File!]
+  content: JSON
+  description: String!
+  createdAt: Date!
+  creatorId: String!
+  image: File!
+  public: Boolean!
+  updatedAt: Date!
+  creator: UserEntityWithoutUnusedData!
+  _count: FullPostEntityCount!
+  tags: [PostByTagEntityWithTag!]!
+}
+
+type FullPostEntity {
+  id: ID!
+  title: String!
+  attachments: [File!]
+  content: JSON
+  description: String!
+  createdAt: Date!
+  creatorId: String!
+  image: File!
+  public: Boolean!
+  updatedAt: Date!
+  creator: UserEntityWithoutUnusedData!
+  _count: FullPostEntityCount!
+  tags: [PostByTagEntityWithTag!]!
+  claps: [PostClap!]!
+}
+
+type FindTrendingPostsResponse {
+  id: ID!
+  title: String!
+  creator: UserEntityWithoutUnusedData!
+  public: Boolean!
+  createdAt: Date!
+}
+
+type PostCommentEntity {
+  id: ID!
+  postId: String!
+  creatorId: String!
+  content: String!
+  claps: Int!
+  createdAt: Date!
+}
+
+type PostCommentEntityWithCreator {
+  id: ID!
+  postId: String!
+  creatorId: String!
+  content: String!
+  claps: Int!
+  createdAt: Date!
+  creator: UserEntity!
+}
+
+type UpdatePostCommentClapsResponse {
+  id: ID!
+  claps: Int!
+}
+
+type PostClapsCount {
+  claps: Int!
+}
+
+type TogglePostClapsResponse {
+  _count: PostClapsCount!
+  id: ID
+}
+
+type ListCount {
+  posts: Int!
+}
+
+type ListEntityWithCreatorWithCount {
+  id: ID!
+  creatorId: String!
+  name: String!
+  public: Boolean!
+  description: String
+  createdAt: Date!
+  creator: UserEntityWithoutUnusedData!
+  _count: ListCount!
+}
+
+type ListForPostEntity {
+  listId: String!
+  id: ID!
+  postId: String!
+  note: String
+}
+
+type FindManyListsPost {
+  id: String!
+}
+
+type FindManyListsResponse {
+  id: ID!
+  creatorId: String!
+  name: String!
+  public: Boolean!
+  description: String
+  createdAt: Date!
+  creator: UserEntityWithoutUnusedData!
+  _count: ListCount!
+  posts: [FindManyListsPost!]!
+}
+
+type FindListPostsResponse {
+  id: ID!
+  title: String!
+  attachments: [File!]
+  content: JSON
+  description: String!
+  createdAt: Date!
+  creatorId: String!
+  image: File!
+  public: Boolean!
+  updatedAt: Date!
+  creator: UserEntityWithoutUnusedData!
+  note: String
+  tags: [PostByTagEntityWithTag!]!
+}
+
+type AddPostToListResponse {
+  message: String!
+}
+
+type RemovePostFromListResponse {
+  message: String!
+}
+
+"""Date custom scalar type"""
+scalar Date
+
+type Query {
+  searchUsers(query: SearchUsersQuery!): [SearchUsersResponse!]!
+  findUserById(input: FindUserByIdInput!): UserEntity!
+  getUserPostsCount: Int!
+  currentUser: CurrentUserResponse!
+  verifyEmail(input: VerifyEmailInput!): UserEntity!
+  verifyResetPasswordCode(code: String!): Boolean!
+  findAllPosts(query: FindAllPostsQuery!): [FullPostEntity!]!
+  findTrendingPosts(query: FindTrendingPostsQuery!): [FindTrendingPostsResponse!]!
+  findPostById(input: FindPostByIdInput!): PostEntityWithCreatorAndTags!
+  findAllPostComments(query: FindAllPostCommentsQuery!): [PostCommentEntityWithCreator!]!
+  findPostClaps(input: FindPostClapsInput!): [PostClap!]!
+  findManyTags(query: FindManyTagsQuery): [TagEntityWithCount!]!
+  findTagByName(input: FindTagByNameInput!): TagEntityWithCount
+  findManyLists(query: FindManyListsInput!): [FindManyListsResponse!]!
+  findListById(input: FindListByIdInput!): ListEntityWithCreatorWithCount!
+  findListPosts(input: FindListPostsInput!): [FindListPostsResponse!]!
+}
+
+input SearchUsersQuery {
+  searchValue: String
+  take: Int
+  sortBy: String
+  sortOrder: String
+  skip: Int
+}
+
+input FindUserByIdInput {
+  userId: String!
+}
+
+input VerifyEmailInput {
+  code: String!
+}
+
+input FindAllPostsQuery {
+  sortBy: String
+  searchValue: String
+  sortOrder: String
+  take: Int
+  skip: Int
+  tag: String
+  listId: String
+  creatorId: String
+}
+
+input FindTrendingPostsQuery {
+  sortBy: String
+  take: Int
+  sortOrder: String
+}
+
+input FindPostByIdInput {
+  postId: String!
+}
+
+input FindAllPostCommentsQuery {
+  postId: String!
+  creatorId: String
+  take: Int
+  comments: [String!]
+  sortBy: String
+}
+
+input FindPostClapsInput {
+  postId: String!
+}
+
+input FindManyTagsQuery {
+  searchValue: String
+  take: Int
+  sortBy: String
+  sortOrder: String
+  skip: Int
+}
+
+input FindTagByNameInput {
+  tagName: String!
+}
+
+input FindManyListsInput {
+  take: Int
+  skip: Int
+  creatorId: String
+  lists: [String!]
+  searchValue: String
+  withoutCurrentUserLists: Boolean
+}
+
+input FindListByIdInput {
+  listId: String!
+}
+
+input FindListPostsInput {
+  take: Int
+  skip: Int
+  listId: String!
+}
+
+type Mutation {
+  updateUser(input: UpdateUserInput!): UserEntity!
+  updateUserAvatar(file: Upload!): UserEntity!
+  subscribeOrManage(input: SubscribeInput!): String!
+  sendVerificationLink(input: SendVerificationLinkInput!): String!
+  sendResetPasswordLink(input: SendResetPasswordLinkInput!): String!
+  resetPassword(input: ResetPasswordInput!): String!
+  signUp(input: SignUpInput!): UserEntity!
+  signIn(input: SignInInput!): SignInResponse!
+  signOut: JSON!
+  uploadFile(file: Upload!): File!
+  deleteFile(key: String!): String!
+  createPost(input: CreatePostInput!): PostEntity!
+  updatePost(input: UpdatePostInput!): PostEntity!
+  deletePost(input: DeletePostInput!): JSON!
+  updatePostCommentClaps(input: UpdatePostCommentClapsInput!): UpdatePostCommentClapsResponse!
+  createPostComment(input: CreatePostCommentInput!): PostCommentEntity!
+  deletePostComment(input: DeletePostCommentInput!): PostCommentEntity!
+  togglePostClaps(input: TogglePostClapsInput!): TogglePostClapsResponse!
+  createList(input: CreateListInput!): ListEntityWithCreatorWithCount!
+  updateList(input: UpdateListInput!): ListEntityWithCreatorWithCount!
+  addPostToList(input: AddPostToListInput!): AddPostToListResponse!
+  removePostFromList(input: RemovePostFromListInput!): RemovePostFromListResponse!
+  updateNote(input: UpdateNoteInput!): ListForPostEntity!
+  deleteList(input: DeleteListInput!): String!
+}
+
+input UpdateUserInput {
+  username: String
+  about: String
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+input SubscribeInput {
+  redirectUrl: String!
+}
+
+input SendVerificationLinkInput {
+  link: String!
+}
+
+input SendResetPasswordLinkInput {
+  email: String!
+  link: String!
+}
+
+input ResetPasswordInput {
+  password: String!
+  code: String!
+}
+
+input SignUpInput {
+  email: String!
+  password: String!
+  username: String!
+}
+
+input SignInInput {
+  email: String!
+  password: String!
+}
+
+input CreatePostInput {
+  attachments: [FileInput!]!
+  description: String!
+  content: JSON!
+  image: FileInput!
+  title: String!
+  public: Boolean!
+  tags: [String!]!
+}
+
+input FileInput {
+  url: String!
+  key: String!
+}
+
+input UpdatePostInput {
+  postId: String!
+  image: Upload
+  title: String
+  description: String
+  content: JSON
+  attachments: [FileInput!]
+  tags: [String!]
+}
+
+input DeletePostInput {
+  postId: String!
+}
+
+input UpdatePostCommentClapsInput {
+  commentId: String!
+}
+
+input CreatePostCommentInput {
+  postId: String!
+  content: String!
+}
+
+input DeletePostCommentInput {
+  commentId: String!
+}
+
+input TogglePostClapsInput {
+  postId: String!
+  userId: String!
+}
+
+input CreateListInput {
+  public: Boolean!
+  name: String!
+  description: String
+}
+
+input UpdateListInput {
+  listId: String!
+  name: String
+  description: String
+  public: Boolean
+}
+
+input AddPostToListInput {
+  listId: String!
+  postId: String!
+}
+
+input RemovePostFromListInput {
+  listId: String!
+  postId: String!
+}
+
+input UpdateNoteInput {
+  listId: String!
+  note: String!
+  postId: String!
+}
+
+input DeleteListInput {
+  listId: String!
+}

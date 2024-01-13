@@ -1,0 +1,19 @@
+.trigger {
+    @apply flex gap-x-1 text-zinc-600 hover:text-zinc-900 transition-all;
+    svg {
+        path {
+            stroke-width: 1.5px;
+        }
+    }
+}
+.content {
+    &::-webkit-scrollbar {
+        display: none;
+    }
+    @apply w-full overflow-auto;
+    
+}
+.option {
+    background-color: white !important;
+    @apply text-zinc-900
+}

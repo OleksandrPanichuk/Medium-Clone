@@ -1,0 +1,138 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+type File {
+  url String  @db.String
+  key String? @db.String
+}
+
+model User {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  username String
+  email    String  @unique
+  hash     String? @db.String
+
+  avatar File?
+
+  about String?
+
+  verified Boolean @default(false)
+
+  createdPosts Posts[]
+  comments     PostComments[]
+  lists        Lists[]
+  claps        PostClaps[]
+
+  createdAt DateTime @default(now())
+
+  subscription Subscription?
+}
+
+model Lists {
+  id          String        @id @default(auto()) @map("_id") @db.ObjectId
+  creator     User          @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  creatorId   String        @db.ObjectId
+  name        String
+  public      Boolean       @default(false)
+  description String?       @db.String
+  posts       ListForPost[]
+  createdAt   DateTime      @default(now())
+}
+
+model ListForPost {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  post   Posts  @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String @db.ObjectId
+
+  list   Lists  @relation(fields: [listId], references: [id], onDelete: Cascade)
+  listId String @db.ObjectId
+
+  note String? @db.String
+}
+
+model Tag {
+  id    String      @id @default(auto()) @map("_id") @db.ObjectId
+  name  String      @unique
+  posts PostByTag[]
+}
+
+model PostByTag {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  tag   Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  tagId String @db.ObjectId
+
+  post   Posts  @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String @db.ObjectId
+}
+
+model PostClaps {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  post   Posts  @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String @db.ObjectId
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @db.ObjectId
+}
+
+model Posts {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  creatorId String @db.ObjectId
+  creator   User   @relation(fields: [creatorId], references: [id])
+
+  image       File
+  title       String
+  description String
+
+  public Boolean @default(true)
+
+  content     Json
+  attachments File[]
+
+  comments PostComments[]
+  lists    ListForPost[]
+  tags     PostByTag[]
+  claps    PostClaps[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PostComments {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  post   Posts  @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId String @db.ObjectId
+
+  creatorId String @db.ObjectId
+  creator   User   @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+
+  claps   Int    @default(0)
+  content String
+
+  createdAt DateTime @default(now())
+}
+
+model Subscription {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  userId String @unique @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id])
+
+  stripeCustomerId       String?   @unique @map(name: "stripe_customer_id")
+  stripeSubscriptionId   String?   @unique @map(name: "stripe_subscription_id")
+  stripePriceId          String?   @map(name: "stripe_price_id")
+  stripeCurrentPeriodEnd DateTime? @map(name: "stripe_current_period_end")
+}
+
+

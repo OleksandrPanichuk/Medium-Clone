@@ -1,0 +1,4 @@
+.main {
+    @apply  flex flex-col gap-6 md:grid ;
+    grid-template-columns: 2fr 1fr
+}

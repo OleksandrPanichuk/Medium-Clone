@@ -1,0 +1,42 @@
+@import '@/styles/variables.scss';
+@import '@/styles/mixins.scss';
+.hero {
+	@apply bg-yellow flex justify-start;
+	@include adaptive-value('padding-block', 100, 50);
+	margin-top: #{$header-height + px};
+}
+
+.container {
+	@apply flex justify-between h-full;
+}
+.content {
+	@apply flex flex-col gap-y-5;
+}
+
+.title {
+	@apply font-secondary text-black tracking-tighter leading-none;
+	@include adaptive-value('font-size', 105, 50);
+	font-feature-settings:
+		'pnum' on,
+		'onum' on;
+}
+
+.text {
+	@apply font-primary  leading-none text-zinc-800;
+	@include adaptive-value('font-size', 24, 16);
+	max-width: 25rem;
+}
+
+.link {
+	@apply rounded-2xl max-w-max text-xl px-5 py-2 inline-flex items-center justify-center font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90;
+}
+
+.image {
+	@apply relative overflow-hidden rounded-sm shadow-md lg:block hidden;
+	@include adaptive-value('width', 500, 400);
+	aspect-ratio: 16/9;
+	img {
+		@apply object-cover hover:scale-125;
+		transition: all 0.4s ease-in-out;
+	}
+}

@@ -1,0 +1,20 @@
+.button {
+	@apply flex gap-x-1;
+   &_active {
+        .icon {
+          @apply animate-claps-scale;
+        }
+    }
+}
+.icon {
+  @apply hover:fill-zinc-900 ;
+}
+
+.count {
+  @apply hover:text-zinc-900 ;
+}
+
+.count, .icon {
+  @apply text-zinc-600 transition
+}
+

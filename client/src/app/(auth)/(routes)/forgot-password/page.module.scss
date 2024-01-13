@@ -1,0 +1,22 @@
+
+.wrapper {
+    @apply mt-8 sm:mx-auto sm:w-full sm:max-w-md;
+}
+
+.inner {
+    @apply bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10 space-y-2;
+}
+
+.login-button {
+    @apply flex justify-center w-full;
+    &__link {
+        @apply flex items-center  text-zinc-600 text-sm hover:text-zinc-800 transition-colors;
+    }
+}
+
+.title {
+    @apply text-2xl text-zinc-800 font-semibold ;
+}
+.description {
+    @apply text-base text-zinc-700 ;
+}

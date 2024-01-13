@@ -1,0 +1,12 @@
+.list {
+    @apply flex flex-col gap-4 w-full;
+  }
+  
+  .wrapper {
+    @apply flex flex-col gap-4 items-center;
+  }
+
+
+.more {
+    @apply flex items-center gap-x-1 text-green-700 transition hover:text-green-800;
+  }

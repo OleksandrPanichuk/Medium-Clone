@@ -1,0 +1,26 @@
+.input {
+    @apply form-input block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-gray-600 sm:text-sm sm:leading-6 ; 
+}
+
+.wrapper {
+    @apply mt-8 sm:mx-auto sm:w-full sm:max-w-md;
+}
+
+.inner {
+    @apply bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10;
+}
+
+.bottom {
+    @apply  flex gap-2 justify-center text-sm mt-6  px-2 text-gray-500;
+}
+
+.socialButton {
+    @apply  inline-flex w-full justify-center rounded-md bg-white px-4 py-2 text-gray-500 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0;
+}
+
+.password {
+    @apply flex justify-between items-start gap-x-2;
+    &__forget {
+        @apply text-zinc-700 text-xs hover:text-zinc-800 transition-colors ;
+    }
+}

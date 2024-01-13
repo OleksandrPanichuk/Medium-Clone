@@ -1,0 +1,33 @@
+@import '@/styles/mixins.scss';
+
+.skeleton {
+	@apply my-6;
+	&__content {
+		@apply grid gap-4 mt-4;
+		@include screen-md {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		@include screen-lg {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+}
+
+.trending {
+	@apply flex flex-col gap-y-4 my-6;
+	&__content {
+		@apply grid gap-4 mt-4;
+		@include screen-md {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		@include screen-lg {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+	&__head {
+		@apply flex items-center gap-x-2;
+	}
+	&__heading {
+		@apply text-gray-primary text-base;
+	}
+}
