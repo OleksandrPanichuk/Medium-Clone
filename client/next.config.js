@@ -1,7 +1,5 @@
 const API_URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
-console.log(API_URL)
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	images: {
@@ -23,11 +21,12 @@ const nextConfig = {
 	async rewrites() {
 		return [
 			{
-				source: '/api/graphql',
-				destination: `${API_URL}/api/graphql`
+				source: '/api/:path*',
+				destination: `${API_URL}/api/:path*`
 			}
 		]
 	}
 }
+
 
 module.exports = nextConfig
