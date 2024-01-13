@@ -11,7 +11,7 @@ export class GoogleOAuthStrategy extends PassportStrategy(Strategy, 'google') {
 		super({
 			clientID:config.get<string>("GOOGLE_CLIENT_ID"),
 			clientSecret:config.get<string>("GOOGLE_CLIENT_SECRET"),
-			callbackURL:`${config.get<string>('URL')}/api/auth/callback/google`,
+			callbackURL:`${config.get<string>('CLIENT_URL')}/api/auth/callback/google`,
 			scope:['email', 'profile']
 		})
 	}
