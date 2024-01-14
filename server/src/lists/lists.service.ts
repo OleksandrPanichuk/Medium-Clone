@@ -11,6 +11,9 @@ import {
 	NotFoundException
 } from '@nestjs/common'
 
+import { DEFAULT_LIST_NAME, SubscriptionLimits } from '@/shared/constants'
+import { CACHE_MANAGER } from '@nestjs/cache-manager'
+import { Cache } from 'cache-manager'
 import {
 	AddPostToListInput,
 	AddPostToListResponse,
@@ -25,13 +28,10 @@ import {
 	UpdateListInput,
 	UpdateNoteInput
 } from './dto'
-import { CACHE_MANAGER } from '@nestjs/cache-manager'
-import { Cache } from 'cache-manager'
 import {
 	ListEntityWithCreatorWithCount,
 	ListForPostEntity
 } from './list.entity'
-import { DEFAULT_LIST_NAME, SubscriptionLimits } from '@/shared/constants'
 
 @Injectable()
 export class ListsService {
@@ -285,8 +285,13 @@ export class ListsService {
 
 			const { description, name } = input
 
-			if (list.name === DEFAULT_LIST_NAME && name && name !== DEFAULT_LIST_NAME)
-				throw new BadRequestException('Cannot change default list name')
+			if (list.name === DEFAULT_LIST_NAME && name && name !== DEFAULT_LIST_NAME){
+			throw new BadRequestException('Cannot change default list name')
+		}
+			 
+			if(name === DEFAULT_LIST_NAME) {
+				throw new BadRequestException('Cannot change list name into default name')
+			}
 
 			const updatedList = await this.prisma.lists.update({
 				where: {

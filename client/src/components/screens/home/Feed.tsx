@@ -25,6 +25,9 @@ export const Feed = ({ initialPosts }: IFeedProps) => {
 	return (
 		<>
 			<div className={'flex flex-col gap-y-4'}>
+				{!posts.length && (
+					<h3 className={'text-xl my-4 text-gray-primary'}>No stories found</h3>
+				)}
 				{posts.map((post) => (
 					<Fragment key={post.id}>
 						<PostCard post={post} />

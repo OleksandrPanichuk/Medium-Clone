@@ -14,13 +14,13 @@ export const Trending = () => {
 		return <Trending.Skeleton />
 	}
 
-	if (!data?.posts) return null
+	if (!data?.posts?.length) return null
 
 	return (
 		<section className={styles.trending}>
 			<div className={styles.trending__head}>
 				<TrendingIcon />
-				<h2 className={styles.trending__heading}>Trending on Medium</h2>
+				<h2 className={styles.trending__heading}>Trending on Podium</h2>
 			</div>
 			<div className={styles.trending__content}>
 				{data?.posts.map((post, index) => (

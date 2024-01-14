@@ -1,11 +1,15 @@
 .wrapper {
-  @apply relative flex flex-col gap-y-4 overflow-auto;
+	@apply relative flex flex-col gap-y-4 overflow-auto;
 }
 
 .more {
-  @apply flex items-center justify-center gap-x-1 text-green-700 transition hover:text-green-800;
+	@apply flex items-center justify-center gap-x-1 text-green-700 transition hover:text-green-800;
 }
 
 .loader {
-  @apply animate-spin text-green-700
+	@apply animate-spin text-green-700;
+}
+
+.no-stories {
+	@apply text-base text-gray-primary;
 }

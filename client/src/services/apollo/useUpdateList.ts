@@ -32,8 +32,8 @@ export const useUpdateList = (options?:MutationHookOptions<ResponseType>): Retur
             const {list} = data
             toast.success('List successfully updated')
 
-			changeListData(list.id, { public: list.public })
-			cacheManager.modifyList(list.id, { public: list.public, description:list.description, name:list.name })
+			changeListData(list.id,  list)
+			cacheManager.modifyList(list.id, list)
 
             options?.onCompleted?.(data)
         },

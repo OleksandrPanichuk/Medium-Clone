@@ -15,6 +15,9 @@ export const PostsList = () => {
 	const fakeArray = new Array(POSTS_LOADING_SKELETONS_COUNT).fill(0)
 	return (
 		<div className={styles.wrapper}>
+			{!posts.length && (
+				<p className={styles['no-stories']}>No stories added</p>
+			)}
 			{posts.map((post) => (
 				<div key={post.id}>
 					<PostDescription post={post} />

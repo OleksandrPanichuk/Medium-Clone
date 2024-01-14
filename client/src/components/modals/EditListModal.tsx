@@ -1,11 +1,6 @@
 'use client'
 
 import {
-	DEFAULT_LIST_NAME,
-	MAX_LIST_DESCRIPTION_LENGTH,
-	MAX_LIST_NAME_LENGTH
-} from '@/shared/config'
-import {
 	Button,
 	Checkbox,
 	Dialog,
@@ -24,14 +19,19 @@ import {
 	Input,
 	TextareaAutosize
 } from '@/components/ui'
+import { useDisclosure } from '@/hooks'
+import { updateListSchema } from '@/lib'
+import { useUpdateList } from '@/services'
+import {
+	DEFAULT_LIST_NAME,
+	MAX_LIST_DESCRIPTION_LENGTH,
+	MAX_LIST_NAME_LENGTH
+} from '@/shared/config'
+import type { TypeListWithCreator } from '@/shared/types'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { PropsWithChildren, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { updateListSchema } from '@/lib'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useUpdateList } from '@/services'
-import {  useDisclosure } from '@/hooks'
-import { PropsWithChildren, useEffect } from 'react'
-import type { TypeListWithCreator } from '@/shared/types'
 
 type TypeFormData = z.infer<typeof updateListSchema>
 
@@ -47,7 +47,6 @@ export const EditListModal = ({
 }: PropsWithChildren<IEditListModalProps>) => {
 	const { isOpen, onClose, onToggle } = useDisclosure()
 
-
 	const form = useForm<TypeFormData>({
 		resolver: zodResolver(updateListSchema),
 		defaultValues: {
@@ -57,25 +56,29 @@ export const EditListModal = ({
 		},
 		mode: 'onBlur'
 	})
-	
-	useEffect(() => {
-		form.setValue('name', list.name)
-		form.setValue('description', list.description)
-		form.setValue('public', !list.public)
-	}, [list, form])
 
 	const {
 		handleSubmit,
 		control,
-		formState: { isSubmitting, isValid }
+		reset,
+		formState: { isValid }
 	} = form
 
+	useEffect(() => {
+		reset({
+			...list,
+			description: list.description ?? ''
+		})
+	}, [list, reset])
 
-	const [updateList] = useUpdateList({
-		onCompleted:({list}) => {
+	const [updateList, {loading: isSubmitting}] = useUpdateList({
+		onCompleted: ({ list }) => {
 			onFormSubmit(list)
 			onClose()
-			form.reset()
+			form.reset({
+				...list,
+				description: list.description ?? ''
+			})
 		}
 	})
 
@@ -84,7 +87,6 @@ export const EditListModal = ({
 			listId: list.id,
 			description: values.description,
 			public: !values.public,
-
 			name: values.name
 		})
 
@@ -129,26 +131,31 @@ export const EditListModal = ({
 						<FormField
 							control={control}
 							name="description"
-							render={({ field }) => (
-								<FormItem>
-									<FormControl>
-										<TextareaAutosize
-											{...field}
-											disabled={isSubmitting}
-											className={'max-h-[12.5rem] text-sm overflow-hidden '}
-											placeholder="Description"
-										/>
-									</FormControl>
-									<div className="w-full flex items-center justify-between gap-x-2">
-										<FormMessage />
-										<div />
-										<FormLimit
-											limit={MAX_LIST_DESCRIPTION_LENGTH}
-											value={field.value}
-										/>
-									</div>
-								</FormItem>
-							)}
+							render={({ field }) => 
+							
+								 (
+									<FormItem>
+										<FormControl>
+											<TextareaAutosize
+												{...field}
+												onChange={(e) => field.onChange(e.target.value ?? '')}
+												value={field.value ?? ''}
+												disabled={isSubmitting}
+												className={'max-h-[12.5rem] text-sm overflow-hidden '}
+												placeholder="Description"
+											/>
+										</FormControl>
+										<div className="w-full flex items-center justify-between gap-x-2">
+											<FormMessage />
+											<div />
+											<FormLimit
+												limit={MAX_LIST_DESCRIPTION_LENGTH}
+												value={field.value}
+											/>
+										</div>
+									</FormItem>
+								)
+							}
 						/>
 						<FormField
 							control={control}
