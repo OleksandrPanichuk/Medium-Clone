@@ -63,7 +63,7 @@ export class ListsService {
 					...(query.searchValue && {
 						name: {
 							contains: query.searchValue,
-							mode:'insensitive'
+							mode: 'insensitive'
 						}
 					}),
 					public: query.creatorId
@@ -174,7 +174,7 @@ export class ListsService {
 					listId: query.listId
 				},
 				take: query.take,
-				skip:query.skip,
+				skip: query.skip,
 				include: {
 					post: {
 						include: {
@@ -212,26 +212,33 @@ export class ListsService {
 	): Promise<ListEntityWithCreatorWithCount> {
 		try {
 			const userInfo = await this.prisma.user.findUnique({
-				where:{
-					id:creatorId
+				where: {
+					id: creatorId
 				},
 				select: {
-					subscription:true,
+					subscription: true,
 					_count: {
 						select: {
-							lists:true
+							lists: true
 						}
 					}
 				}
 			})
-			if(!userInfo.subscription && userInfo._count.lists >= SubscriptionLimits.LISTS) {
-				throw new HttpException('You have reached the limit of the free tier. Please upgrade your plan to get unlimited access', HttpStatus.PAYMENT_REQUIRED)
+			if (
+				!userInfo.subscription &&
+				userInfo._count.lists >= SubscriptionLimits.LISTS
+			) {
+				throw new HttpException(
+					'You have reached the limit of the free tier. Please upgrade your plan to get unlimited access',
+					HttpStatus.PAYMENT_REQUIRED
+				)
 			}
-			
-			if (input.name === DEFAULT_LIST_NAME) throw new BadRequestException('Cannot create list with default list name')
-			
-			
-			
+
+			if (input.name === DEFAULT_LIST_NAME)
+				throw new BadRequestException(
+					'Cannot create list with default list name'
+				)
+
 			const existingList = await this.prisma.lists.findFirst({
 				where: {
 					creatorId,
@@ -285,12 +292,18 @@ export class ListsService {
 
 			const { description, name } = input
 
-			if (list.name === DEFAULT_LIST_NAME && name !== DEFAULT_LIST_NAME){
-			throw new BadRequestException('Cannot change default list name')
-		}
-			 
-			if(name === DEFAULT_LIST_NAME && list.name !== DEFAULT_LIST_NAME) {
-				throw new BadRequestException('Cannot change list name into default name')
+			if (
+				list.name === DEFAULT_LIST_NAME &&
+				name &&
+				name !== DEFAULT_LIST_NAME
+			) {
+				throw new BadRequestException('Cannot change default list name')
+			}
+
+			if (name === DEFAULT_LIST_NAME && list.name !== DEFAULT_LIST_NAME) {
+				throw new BadRequestException(
+					'Cannot change list name into default name'
+				)
 			}
 
 			const updatedList = await this.prisma.lists.update({
@@ -307,8 +320,8 @@ export class ListsService {
 					creator: {
 						select: {
 							avatar: true,
-								id: true,
-								username: true
+							id: true,
+							username: true
 						}
 					},
 					_count: {
@@ -332,7 +345,6 @@ export class ListsService {
 		userId: string
 	): Promise<AddPostToListResponse> {
 		try {
-
 			const list = await this.prisma.lists.findUnique({
 				where: {
 					id: input.listId,
@@ -342,11 +354,11 @@ export class ListsService {
 			if (!list) throw new NotFoundException('List not found')
 
 			const userInfo = await this.prisma.user.findUnique({
-				where:{
-					id:userId
+				where: {
+					id: userId
 				},
 				select: {
-					subscription:true,
+					subscription: true,
 					lists: {
 						where: {
 							id: input.listId
@@ -354,17 +366,22 @@ export class ListsService {
 						select: {
 							_count: {
 								select: {
-									posts:true
+									posts: true
 								}
 							}
 						}
 					}
 				}
 			})
-			if(!userInfo.subscription && userInfo.lists[0]._count.posts >= SubscriptionLimits.POSTS_PER_LIST) {
-				throw new HttpException('You have reached the limit of the free tier. Please upgrade your plan to get unlimited access', HttpStatus.PAYMENT_REQUIRED)
+			if (
+				!userInfo.subscription &&
+				userInfo.lists[0]._count.posts >= SubscriptionLimits.POSTS_PER_LIST
+			) {
+				throw new HttpException(
+					'You have reached the limit of the free tier. Please upgrade your plan to get unlimited access',
+					HttpStatus.PAYMENT_REQUIRED
+				)
 			}
-
 
 			const isPostAlreadyInList = await this.prisma.listForPost.findFirst({
 				where: {
