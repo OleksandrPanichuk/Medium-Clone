@@ -285,11 +285,11 @@ export class ListsService {
 
 			const { description, name } = input
 
-			if (list.name === DEFAULT_LIST_NAME && name && name !== DEFAULT_LIST_NAME){
+			if (list.name === DEFAULT_LIST_NAME && name !== DEFAULT_LIST_NAME){
 			throw new BadRequestException('Cannot change default list name')
 		}
 			 
-			if(name === DEFAULT_LIST_NAME) {
+			if(name === DEFAULT_LIST_NAME && list.name !== DEFAULT_LIST_NAME) {
 				throw new BadRequestException('Cannot change list name into default name')
 			}
 

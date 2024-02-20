@@ -3,7 +3,7 @@
 import { Loading } from '@/components/common'
 import { Sidebar, Tabs } from '@/components/screens/search'
 import { ListsView } from '@/components/screens/search/lists'
-import { useMultipleSearchQuery } from '@/services/apollo/useMultipleSearchQuery'
+import { useMultipleSearchQuery } from '@/services/apollo'
 
 import { ISearchPageProps, TypeListsSearch } from '@/shared/types'
 import { notFound } from 'next/navigation'
