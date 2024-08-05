@@ -1,7 +1,7 @@
 'use client'
 import type { TypeTag } from '@/shared/types'
 import styles from '../Sidebar.module.scss'
-import { useSidebarNavigate } from '../hooks/useSidebarNavigate'
+import { useSidebarNavigate } from '../Sidebar.hooks'
 import { Separator } from '@/components/ui'
 import Link from 'next/link'
 import { Routes } from '@/shared/constants'

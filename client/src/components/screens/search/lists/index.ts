@@ -1,1 +1,1 @@
-export * from './ListsView/ListsView'
+export * from './ListsView'

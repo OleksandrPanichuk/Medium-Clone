@@ -1,3 +1,3 @@
 export * from './SubscriptionSection'
-export * from './EditProfileForm/EditProfileForm'
+export * from './EditProfileForm'
 export * from './VerifyProfile'

@@ -1,2 +1,2 @@
 export * from './BackButton'
-export * from './AuthForm/AuthForm'
+export * from './AuthForm'

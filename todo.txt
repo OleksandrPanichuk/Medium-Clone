@@ -1,0 +1,5 @@
+Frontent
+	1. replace editorjs with tiptap
+	2. remove custom popover component
+	3. services actions fix structure
+	4. add following system

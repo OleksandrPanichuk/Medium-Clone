@@ -1,6 +1,6 @@
 import { TypeBaseUser } from "@/shared/types";
 import React, { PropsWithChildren } from "react";
-import styles from './list.layout.module.scss'
+import styles from './ListLayout.module.scss'
 import { Sidebar } from "@/components/screens/profile";
 
 interface IListLayoutProps {

@@ -1,10 +1,9 @@
-import { Header } from '@/components/common'
 import { Sidebar, Tabs } from '@/components/screens/profile'
 
 import type { TypeBaseUser } from '@/shared/types'
 import { PropsWithChildren } from 'react'
 
-import styles from './profile.layout.module.scss'
+import styles from './ProfileLayout.module.scss'
 
 interface IProfileLayoutProps {
 	user: TypeBaseUser

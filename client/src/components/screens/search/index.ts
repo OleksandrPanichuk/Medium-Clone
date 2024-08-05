@@ -1,4 +1,4 @@
 "use client"
-export * from './Sidebar/Sidebar'
+export * from './Sidebar'
 export * from './Tabs'
-export * from './RecentSearches/RecentSearches'
+export * from './RecentSearches'

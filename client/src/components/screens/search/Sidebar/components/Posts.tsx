@@ -6,7 +6,7 @@ import { cn, formatDate, toDateString } from '@/lib'
 import { Dot } from 'lucide-react'
 import { MemberOnly } from '@/components/common'
 import Link from 'next/link'
-import { useSidebarNavigate } from '../hooks'
+import { useSidebarNavigate } from '../Sidebar.hooks'
 import { Routes } from '@/shared/constants'
 
 interface IPostsProps {

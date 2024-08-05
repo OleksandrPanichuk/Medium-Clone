@@ -1,7 +1,8 @@
-export * from './utils'
 export * from './apollo'
+export * from './cache-manager'
+export { default as EditorOutput } from './editorjs-renderer'
 export * from './format'
-export * from './mergeRefs'
-export {default as EditorOutput} from './editorjs-renderer'
+export * from './merge-refs'
+export * from './utils'
 export * from './validators'
-export * from './cacheManager'
+

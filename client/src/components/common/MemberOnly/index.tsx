@@ -2,7 +2,6 @@ import { SparkleIcon } from '@/components/icons'
 import styles from './MemberOnly.module.scss'
 import {
 	Button,
-	buttonVariants,
 	Popover,
 	PopoverContent,
 	PopoverTrigger

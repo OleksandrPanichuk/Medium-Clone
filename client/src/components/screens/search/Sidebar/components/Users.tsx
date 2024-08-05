@@ -2,7 +2,7 @@
 import type { TypeBaseUser } from '@/shared/types'
 import styles from '../Sidebar.module.scss'
 import { cn } from '@/lib'
-import { useSidebarNavigate } from '../hooks'
+import { useSidebarNavigate } from '../Sidebar.hooks'
 import { Avatar, Separator } from '@/components/ui'
 import Link from 'next/link'
 import { Routes } from '@/shared/constants'

@@ -1,2 +1,2 @@
 export * from './AboutForm'
-export {default as AboutMePage} from './AboutMePage/AboutMePage'
+export {default as AboutMePage} from './AboutMePage'

@@ -1,1 +1,1 @@
-export * from './TopicsSearch/TopicsSearch'
+export * from './TopicsSearch'

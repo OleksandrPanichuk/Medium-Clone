@@ -1,2 +1,2 @@
-export * from './UserCard/UserCard'
-export {default as UsersList} from './UsersList/UsersList'
+export * from './UserCard'
+export {default as UsersList} from './UsersList'

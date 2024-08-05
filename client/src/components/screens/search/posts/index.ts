@@ -1,1 +1,1 @@
-export * from './PostsList/PostsList'
+export * from './PostsList'

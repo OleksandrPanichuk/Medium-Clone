@@ -1,3 +1,3 @@
-export * from './Sidebar/Sidebar'
-export * from './Tabs/Tabs'
+export * from './Sidebar'
+export * from './Tabs'
 export * from './PostsList'

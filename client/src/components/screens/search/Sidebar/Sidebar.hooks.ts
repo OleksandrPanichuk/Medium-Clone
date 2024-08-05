@@ -1,5 +1,5 @@
-import { useRouter } from 'next/navigation'
 import { Routes } from '@/shared/constants'
+import { useRouter } from 'next/navigation'
 
 type NavigateType = 'people' | 'tags' | 'posts'
 

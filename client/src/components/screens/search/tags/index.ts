@@ -1,1 +1,1 @@
-export * from './TagsList/TagsList'
+export * from './TagsList'

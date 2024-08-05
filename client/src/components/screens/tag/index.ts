@@ -1,4 +1,4 @@
 "use client"
-export * from './Posts/Posts'
-export * from './PostCard/PostCard'
-export * from './PostsSkeleton/PostsSkeleton'
+export * from './Posts'
+export * from './PostCard'
+export * from './PostsSkeleton'
