@@ -1,31 +1,35 @@
+import { generateErrorResponse } from '@/common/helpers'
+import { PrismaService } from '@/common/prisma/prisma.service'
+import { StorageService } from '@/common/storage/storage.service'
+import { SubscriptionLimits } from '@/shared/constants'
+import { File } from '@/shared/types'
+import { CACHE_MANAGER } from '@nestjs/cache-manager'
 import {
 	ConflictException,
 	ForbiddenException,
+	HttpException,
+	HttpStatus,
 	Inject,
 	Injectable,
-	NotFoundException,
-	HttpStatus, HttpException
+	NotFoundException
 } from '@nestjs/common'
-import { PrismaService } from '@/common/prisma/prisma.service'
-import { StorageService } from '@/common/storage/storage.service'
-import { generateErrorResponse } from '@/common/helpers'
-import {
-	FullPostEntity,
-	PostEntity,
-	PostEntityWithCreatorAndTags
-} from './post.entity'
+import { User } from '@prisma/client'
+import { Cache } from 'cache-manager'
 import {
 	CreatePostInput,
 	DeletePostInput,
 	FindAllPostsQuery,
 	UpdatePostInput
 } from './dto'
-import { File } from '@/shared/types'
-import { Cache } from 'cache-manager'
-import { CACHE_MANAGER } from '@nestjs/cache-manager'
-import { User } from '@prisma/client'
-import { SubscriptionLimits } from '@/shared/constants'
-import { FindTrendingPostsQuery, FindTrendingPostsResponse } from './dto/find-trending-posts.dto'
+import {
+	FindTrendingPostsQuery,
+	FindTrendingPostsResponse
+} from './dto/find-trending-posts.dto'
+import {
+	FullPostEntity,
+	PostEntity,
+	PostEntityWithCreatorAndTags
+} from './post.entity'
 
 @Injectable()
 export class PostService {
@@ -60,20 +64,20 @@ export class PostService {
 					...(!!query?.listId && {
 						lists: {
 							some: {
-								id:query.listId
+								id: query.listId
 							}
 						}
 					}),
 					...(query.creatorId && {
-						creatorId:query.creatorId
+						creatorId: query.creatorId
 					})
 				},
 				include: {
 					creator: {
 						select: {
-							username:true,
-							id:true,
-							avatar:true
+							username: true,
+							id: true,
+							avatar: true
 						}
 					},
 					tags: {
@@ -81,76 +85,86 @@ export class PostService {
 							tag: true
 						}
 					},
-					
+
 					claps: true,
 					_count: {
 						select: {
 							comments: true,
 							claps: true,
-							lists:true
+							lists: true
 						}
 					}
 				},
 				skip: query?.skip,
 				take: query?.take,
 				orderBy: {
-					...(query.sortBy
-						&& query.sortBy !== 'claps' ? {
+					...(query.sortBy && query.sortBy !== 'claps'
+						? {
 								[query.sortBy]: query.sortOrder ?? 'asc'
-						  } : {
-							claps: {
-								_count: query.sortOrder ?? 'asc'
-							}
 						  }
-						),
-						
-				},
+						: {
+								claps: {
+									_count: query.sortOrder ?? 'asc'
+								}
+						  })
+				}
 			})
 		} catch (err) {
 			throw generateErrorResponse(err)
 		}
 	}
-	public async findTrendingPosts(query: FindTrendingPostsQuery) : Promise<FindTrendingPostsResponse[]> {
+	public async findTrendingPosts(
+		query: FindTrendingPostsQuery
+	): Promise<FindTrendingPostsResponse[]> {
 		try {
 			return await this.prisma.posts.findMany({
 				include: {
 					creator: {
 						select: {
-							username:true,
-							avatar:true,
-							id:true
-						} 
+							username: true,
+							avatar: true,
+							id: true
+						}
 					}
 				},
-				take:query.take,
+				take: query.take,
 				orderBy: {
-					...(query.sortBy
-						&& query.sortBy !== 'claps' ? {
+					...(query.sortBy && query.sortBy !== 'claps'
+						? {
 								[query.sortBy]: query.sortOrder ?? 'asc'
-						  } : {
-							claps: {
-								_count: query.sortOrder ?? 'asc'
-							}
 						  }
-						),
-						
-				},
+						: {
+								claps: {
+									_count: query.sortOrder ?? 'asc'
+								}
+						  })
+				}
 			})
 		} catch (err) {
 			throw generateErrorResponse(err)
 		}
 	}
 
-	public async findById(postId: string, subscribed:boolean, userId:string): Promise<PostEntityWithCreatorAndTags> {
+	public async findById(
+		postId: string,
+		subscribed: boolean,
+		userId: string
+	): Promise<PostEntityWithCreatorAndTags> {
 		try {
 			const cachedPost = (await this.cacheManager.get(postId)) as
 				| PostEntityWithCreatorAndTags
 				| undefined
 
 			if (cachedPost) {
-				if(cachedPost.public) return cachedPost;
+				if (cachedPost.public) return cachedPost
 
-				return {...cachedPost, content: subscribed || userId === cachedPost.creatorId ? cachedPost.content : null}
+				return {
+					...cachedPost,
+					content:
+						subscribed || userId === cachedPost.creatorId
+							? cachedPost.content
+							: null
+				}
 			}
 
 			const post = await this.prisma.posts.findUnique({
@@ -160,9 +174,9 @@ export class PostService {
 				include: {
 					creator: {
 						select: {
-							username:true,
-							id:true,
-							avatar:true
+							username: true,
+							id: true,
+							avatar: true
 						}
 					},
 					tags: {
@@ -174,7 +188,7 @@ export class PostService {
 						select: {
 							comments: true,
 							claps: true,
-							lists:true
+							lists: true
 						}
 					}
 				}
@@ -183,36 +197,42 @@ export class PostService {
 
 			await this.cacheManager.set(postId, post)
 
-			if(post.public) return post
+			if (post.public) return post
 
-			return {...post, content: subscribed || post.creatorId === userId ? post.content : null}
+			return {
+				...post,
+				content: subscribed || post.creatorId === userId ? post.content : null
+			}
 		} catch (err) {
 			throw generateErrorResponse(err)
 		}
 	}
 
-	public async create(
-		dto: CreatePostInput,
-		user: User
-	): Promise<PostEntity> {
+	public async create(dto: CreatePostInput, user: User): Promise<PostEntity> {
 		try {
-			if(!user.verified) throw new ForbiddenException('User is not verified')
+			if (!user.verified) throw new ForbiddenException('User is not verified')
 
 			const userInfo = await this.prisma.user.findUnique({
-				where:{
-					id:user.id
+				where: {
+					id: user.id
 				},
 				select: {
-					subscription:true,
+					subscription: true,
 					_count: {
 						select: {
-							createdPosts:true
+							createdPosts: true
 						}
 					}
 				}
 			})
-			if(!userInfo?.subscription?.stripeSubscriptionId && userInfo?._count?.createdPosts >= SubscriptionLimits.POSTS) {
-				throw new HttpException('You have reached the limit of the free tier. Please upgrade your plan to get unlimited access', HttpStatus.PAYMENT_REQUIRED)
+			if (
+				!userInfo?.subscription?.stripeSubscriptionId &&
+				userInfo?._count?.createdPosts >= SubscriptionLimits.POSTS
+			) {
+				throw new HttpException(
+					'You have reached the limit of the free tier. Please upgrade your plan to get unlimited access',
+					HttpStatus.PAYMENT_REQUIRED
+				)
 			}
 
 			const postWithSameName = await this.prisma.posts.findFirst({
@@ -236,22 +256,42 @@ export class PostService {
 					creatorId: user.id
 				}
 			})
-			const tags = await this.prisma.tag.findMany({
+			let tags = await this.prisma.tag.findMany({
 				where: {
-					id: {
+					name: {
 						in: dto.tags
 					}
 				}
 			})
 
-			for await (const tag of tags) {
-				await this.prisma.postByTag.create({
-					data: {
-						postId: post.id,
-						tagId: tag.id
-					}
-				})
+			const tagsToCreate = dto.tags.filter(
+				(tag) => !tags.find((t) => t.name === tag)
+			)
+
+			if (tagsToCreate.length) {
+				const createdTags = await Promise.all(
+					tagsToCreate.map(async (tagName) => {
+						return await this.prisma.tag.create({
+							data: {
+								name: tagName
+							}
+						})
+					})
+				)
+
+				tags = [...tags, ...createdTags]
 			}
+
+			await Promise.all(
+				tags.map(async (tag) => {
+					await this.prisma.postByTag.create({
+						data: {
+							postId: post.id,
+							tagId: tag.id
+						}
+					})
+				})
+			)
 
 			return post
 		} catch (err) {
@@ -318,9 +358,9 @@ export class PostService {
 					include: {
 						creator: {
 							select: {
-								username:true,
-								id:true,
-								avatar:true
+								username: true,
+								id: true,
+								avatar: true
 							}
 						},
 						tags: {
@@ -332,7 +372,7 @@ export class PostService {
 							select: {
 								comments: true,
 								claps: true,
-								lists:true
+								lists: true
 							}
 						}
 					}
@@ -374,5 +414,4 @@ export class PostService {
 			throw generateErrorResponse(err)
 		}
 	}
-
 }

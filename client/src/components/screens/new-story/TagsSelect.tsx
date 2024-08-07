@@ -1,6 +1,6 @@
 'use client'
 import { MultiValue } from 'react-select'
-import { Select } from '@/components/ui'
+import { CreatableSelect } from '@/components/ui'
 import { ControllerRenderProps } from 'react-hook-form'
 import { TypeTagExtended } from '@/shared/types'
 import { TAGS_QUERY } from '@/graphql'
@@ -54,14 +54,14 @@ export const TagsSelect = ({ field, className, loading }: ITagsSelectProps) => {
 	}, [searchValue])
 
 	return (
-		<Select<TypeTagOption>
+		<CreatableSelect<TypeTagOption>
 			isDisabled={loading}
 			isMulti={true}
 			className={className}
 			onChange={(options) =>
 				field.onChange(
 					(options as unknown as MultiValue<TypeTagOption>)?.map(
-						(option) => option.id
+						(option) => option.value
 					)
 				)
 			}

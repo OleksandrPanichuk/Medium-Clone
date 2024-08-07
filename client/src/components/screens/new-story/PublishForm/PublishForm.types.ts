@@ -18,8 +18,8 @@ export const formSchema = z.object({
 		url: z.string(),
 		key: z.string()
 	}).refine(image => image.url && image.key),
-	title: z.string().min(1).max(200),
-	description: z.string().min(50).max(500),
+	title: z.string().min(1,'Title is too short').max(200, 'Title is too long'),
+	description: z.string().min(50, 'Description is too short').max(500, 'Description is too long'),
 	public:z.boolean(),
 	tags: z
 		.array(z.string())

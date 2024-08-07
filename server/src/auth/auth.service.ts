@@ -75,8 +75,8 @@ export class AuthService {
 			const isPasswordsMatches = await bcrypt.compare(dto.password, user.hash)
 
 			if (!isPasswordsMatches)
-				throw new ForbiddenException("Passwords don't match", {
-					description: 'auth/passwords-do-not-match'
+				throw new ForbiddenException("Invalid email or password", {
+					description: 'auth/invalid-credentials'
 				})
 
 			return {...user , subscribed: !!user.subscription}

@@ -28,7 +28,7 @@ export async function generateMetadata({
 	return constructMetadata({
 		list: data.list,
 		pageUrl: absolutePath(`${Routes.PROFILE_ME_LISTS}/${params.listId}`),
-		title: `List: ${data.list.name} | Curated by ${data.list.creator.username}`,
+		title: `List: ${data.list.name} | Created by ${data.list.creator.username}`,
 		description: `${
 			storiesCount === 0
 				? 'No Stories'

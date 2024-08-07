@@ -1,14 +1,13 @@
+import { FileInput } from '@/shared/types'
 import { Field, InputType } from '@nestjs/graphql'
-import { GraphQLJSON } from 'graphql-type-json'
 import {
 	IsArray,
 	IsBoolean,
 	IsJSON,
-	IsMongoId,
 	IsNotEmpty,
 	IsString
 } from 'class-validator'
-import { FileInput } from '@/shared/types'
+import { GraphQLJSON } from 'graphql-type-json'
 
 @InputType()
 export class CreatePostInput {
@@ -37,7 +36,8 @@ export class CreatePostInput {
 	public: boolean
 
 	@IsArray()
-	@IsMongoId({ each: true })
+	@IsString({ each: true })
+	@IsNotEmpty({ each: true })
 	@Field(() => [String])
 	tags: string[]
 }

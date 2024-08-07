@@ -12,6 +12,7 @@ import {
 	FormField,
 	FormItem,
 	FormLabel,
+	FormMessage,
 	Input,
 	Textarea
 } from '@/components/ui'
@@ -20,25 +21,25 @@ import { useForm } from 'react-hook-form'
 import { useEditor } from '../EditorProvider'
 import styles from './PublishForm.module.scss'
 
+import { useAuth } from '@/components/providers'
+import {
+	PreviewImageDropzone,
+	TagsSelect
+} from '@/components/screens/new-story'
 import {
 	formSchema,
 	IPublishModalProps,
 	TypeFormData
 } from '@/components/screens/new-story/PublishForm/PublishForm.types'
-import {
-	PreviewImageDropzone,
-	TagsSelect
-} from '@/components/screens/new-story'
-import { useAuth } from '@/components/providers'
-import { ApolloError, useMutation } from '@apollo/client'
 import { CREATE_POST } from '@/graphql'
-import { toast } from 'sonner'
-import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import { TypeCreatePostResponse } from '@/shared/types'
 import { cn, useCacheManager } from '@/lib'
 import { STORY_BLOCKS_COUNT_FOR_PRIVATE_MODE } from '@/shared/config'
 import { Routes } from '@/shared/constants'
+import { TypeCreatePostResponse } from '@/shared/types'
+import { useMutation } from '@apollo/client'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
+import { toast } from 'sonner'
 
 export const PublishForm = ({ onClose, isOpen }: IPublishModalProps) => {
 	const { images: attachments, content, isEmpty } = useEditor()
@@ -46,6 +47,7 @@ export const PublishForm = ({ onClose, isOpen }: IPublishModalProps) => {
 	
 	const form = useForm<TypeFormData>({
 		resolver: zodResolver(formSchema),
+		mode:'onBlur',
 		defaultValues: {
 			attachments,
 			description: '',
@@ -133,6 +135,7 @@ export const PublishForm = ({ onClose, isOpen }: IPublishModalProps) => {
 													className={styles.title__input}
 												/>
 											</FormControl>
+											<FormMessage />
 										</FormItem>
 									)}
 								/>
@@ -152,6 +155,7 @@ export const PublishForm = ({ onClose, isOpen }: IPublishModalProps) => {
 													placeholder="Preview description..."
 												/>
 											</FormControl>
+											<FormMessage />
 										</FormItem>
 									)}
 								/>
